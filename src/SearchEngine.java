@@ -43,7 +43,7 @@ public class SearchEngine {
             yp.secondPass(query);
         } catch (NullPointerException err) {
             noResult = true;
-            JOptionPane.showMessageDialog(f, "No businesses found with those keywords.");
+            JOptionPane.showMessageDialog(f, "No businesses found with the keywords: " + "\"" + query + "\"");
         }
         sp = new searchPanel(yp.getBusinesses());
         if (!noResult) {
