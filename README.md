@@ -1,4 +1,4 @@
-# Yelp search engine (tf-idf)
+# Yelp Search Engine (tf-idf)
 tf-idf (term frequency–inverse document frequency) is a widely used metric for large datasets in order to determine the most relevant keywords. 
 My program takes in a dataset from Yelp, and initially, my project determined the top 30 keywords pertaining to each business in the dataset by using the tf-idf metric. I began by sorting the businesses with respect to the length of their reviews (in characters) and printing them out. 
 
