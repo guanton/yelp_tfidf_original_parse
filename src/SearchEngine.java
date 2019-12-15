@@ -44,9 +44,9 @@ public class SearchEngine {
             JOptionPane.showMessageDialog(f, "No businesses found with those keywords.");
         }
         sp = new searchPanel(yp.getBusinesses());
-        if (yp.getBusinesses().size()>0) {
-            displayResults();
-        }
+
+        displayResults();
+
     }
 
     public void display() {
@@ -79,11 +79,13 @@ public class SearchEngine {
     }
 
     public void displayResults() {
-        f = new JFrame("Results for " + query);
-        f.setContentPane(sp);
-        f.setSize(800, 600);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.setVisible(true);
+        if (yp.getBusinesses().size()>0) {
+            f = new JFrame("Results for " + query);
+            f.setContentPane(sp);
+            f.setSize(800, 600);
+            f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            f.setVisible(true);
+        }
     }
 
     public static void main(String[] args) {
