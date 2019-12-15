@@ -15,6 +15,7 @@ public class SearchEngine {
     private JLabel[] outputs;
     private String query;
     private searchPanel sp;
+    private boolean noResult;
 
 
     public SearchEngine() {
@@ -41,11 +42,13 @@ public class SearchEngine {
         try {
             yp.secondPass(query);
         } catch (NullPointerException err) {
+            noResult = true;
             JOptionPane.showMessageDialog(f, "No businesses found with those keywords.");
         }
         sp = new searchPanel(yp.getBusinesses());
-
-        displayResults();
+        if (!noResult) {
+            displayResults();
+        }
 
     }
 
@@ -70,6 +73,7 @@ public class SearchEngine {
                     String text = i + ". " + b.businessName + "\n" + b.businessAddress + " ";
                     label.setText("<html>" + text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
                     this.add(label);
+                    noResult = false;
                 }
             }
 
@@ -79,13 +83,13 @@ public class SearchEngine {
     }
 
     public void displayResults() {
-        if (yp.getBusinesses().size()>0) {
+
             f = new JFrame("Results for " + query);
             f.setContentPane(sp);
             f.setSize(800, 600);
             f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             f.setVisible(true);
-        }
+
     }
 
     public static void main(String[] args) {
