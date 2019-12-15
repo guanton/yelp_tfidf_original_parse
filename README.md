@@ -6,7 +6,7 @@ In Dec 2020, I started making it into a simple search engine that accepts a quer
 
 IDEs such as intelliJ restrict the file size of attached .txt files, so the attached .txt file is relatively small (20mb), but it is possible to set the file stream to a larger parsed Yelp dataset by referring to its file path. These original datasets can be obtained here: https://www.yelp.com/dataset/download
 
-My code is fully functional but it would be a much quicker search engine if I used JSON to store only the vital values in a sorted array so that I don't need to parse the entire .txt file, which contains every word of every review of every business, every time. This will be my next step, and I will create a new repository for this implementation.
+My code is fully functional but it would be a much quicker search engine if I used JSON to store only the vital values in a sorted array so that I don't need to parse the entire .txt file, which contains every word of every review of every business, every time. This will be my next step, and I have dedicated the old github repository for this implementation.
 
 To make this project, I made use of:
 
