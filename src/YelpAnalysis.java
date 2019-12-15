@@ -181,7 +181,7 @@ public class YelpAnalysis {
         for (String keyWord: keyWords) {
             int tf = 0;
             for (String s: wordsInReviews) {
-                if (s.equals(keyWord)) {
+                if (s.equalsIgnoreCase(keyWord)) {
                     tf++;
                 }
                 tfMap.put(keyWord, tf);
@@ -190,7 +190,7 @@ public class YelpAnalysis {
         return tfMap;
     }
 
-    public Map<String, Double> tfidfcalculator(Business b, String query) {
+    public Map<String, Double> tfidfcalculator(Business b, String query) throws NullPointerException {
         Map<String, Double> tfidfMap = new HashMap<>();
         List<String> keyWords = Arrays.asList(query.split(" "));
         for (String keyWord: keyWords) {

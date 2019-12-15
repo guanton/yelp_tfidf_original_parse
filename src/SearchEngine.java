@@ -22,24 +22,34 @@ public class SearchEngine {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                yp = new YelpAnalysis();
-                query = textField.getText();
-                yp.init(false);
-                yp.txtToString(query);
-                yp.secondPass(query);
-                sp = new searchPanel(yp.getBusinesses());
-                displayResults();
+                searchOperation();
             }
         });
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                query = textField.getText();
+                searchOperation();
             }
         });
     }
 
-    public void display(){
+    public void searchOperation() {
+        yp = new YelpAnalysis();
+        query = textField.getText();
+        yp.init(false);
+        yp.txtToString(query);
+        try {
+            yp.secondPass(query);
+        } catch (NullPointerException err) {
+            JOptionPane.showMessageDialog(f, "No businesses found with those keywords.");
+        }
+        sp = new searchPanel(yp.getBusinesses());
+        if (yp.getBusinesses().size()>0) {
+            displayResults();
+        }
+    }
+
+    public void display() {
         f = new JFrame("Yelp Search");
         f.setContentPane(new SearchEngine().pan);
         f.setSize(800, 600);
@@ -47,19 +57,20 @@ public class SearchEngine {
         f.setVisible(true);
     }
 
+
     private class searchPanel extends javax.swing.JPanel {
         private searchPanel(MinMaxPriorityQueue businesses) {
             //initialize empty board with extra row for buttons
-            this.setLayout(new GridLayout(10,2));
-
+            this.setLayout(new GridLayout(10, 2));
             //make row with only Play button (or no play button if there is no human)
             for (int i = 1; i <= 10; i++) {
-                Business b = yp.getBusinesses().removeFirst();
-                JLabel label = new JLabel();
-                String text = i + ". " + b.businessName + "\n" + b.businessAddress + " ";
-                label.setText("<html>" + text.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-                this.add(label);
-
+                if (yp.getBusinesses().size() != 0) {
+                    Business b = yp.getBusinesses().removeFirst();
+                    JLabel label = new JLabel();
+                    String text = i + ". " + b.businessName + "\n" + b.businessAddress + " ";
+                    label.setText("<html>" + text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+                    this.add(label);
+                }
             }
 
         }
@@ -67,7 +78,7 @@ public class SearchEngine {
 
     }
 
-    public void displayResults(){
+    public void displayResults() {
         f = new JFrame("Results for " + query);
         f.setContentPane(sp);
         f.setSize(800, 600);
