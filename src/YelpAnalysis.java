@@ -15,26 +15,30 @@ public class YelpAnalysis {
     //the number of restaurants in the dataset whose reviews contain the word
     private Map<String, Integer> dictionary = new HashMap<>();
     //different comparators to sort businesses by
-    SortByReviewCharCount srcc = new SortByReviewCharCount();
     SortByTfidf stfidf = new SortByTfidf();
     SortByFreqRatio sbfr = new SortByFreqRatio();
     //a priority Queue representing every business in the .txt file
     private MinMaxPriorityQueue<Business> businesses;
-    private Queue<Business> checkBusinesses = new PriorityQueue<>(srcc);
     private boolean freqmode;
     private Set<Business> businessSet = new HashSet<>();
 
 
     //search
     public static void main(String[] args) {
+        double time1 = System.currentTimeMillis();
         YelpAnalysis yp = new YelpAnalysis();
         yp.init(false);
-        String query = "pizza hut";
+        String query = "pumpkin spice latte";
         yp.txtToString(query);
+        double time2 = System.currentTimeMillis();
+        System.out.println(time2-time1);
         yp.secondPass(query);
-        for (Business b: yp.businesses) {
-            System.out.println(b);
-        }
+        double time3= System.currentTimeMillis();
+        System.out.println(time3-time2);
+//        for (Business b: yp.businesses) {
+//            System.out.println(b);
+//        }
+        System.out.println(System.currentTimeMillis()-time1);
     }
 
     public void init(boolean mode){
@@ -69,8 +73,7 @@ public class YelpAnalysis {
         StringBuilder sb = new StringBuilder();
         try {
             //set the input stream to the file containing the dataset
-            //C:\Users\Pengfei\Desktop\yelpDatasetParsed_medium.txt
-            in = new FileInputStream("yelpDatasetParsed_full.txt");
+            in = new FileInputStream("//C:\\Users\\Pengfei\\Desktop\\yelpDatasetParsed_medium.txt");
             in = new BufferedInputStream(in);
             while (true) {
                 int res = in.read();
